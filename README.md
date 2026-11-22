@@ -4,7 +4,10 @@ Agenda des événements du Trégor : concerts, fest-noz, expositions, marchés, 
 
 ## Fonctionnement
 
-- **Site** : FastAPI + Jinja2, pages rendues côté serveur (lisibles sans JavaScript) : `/`, `/ville/<commune>`, `/type/<type>`, `/evenement/<id>-<titre>`, `sitemap.xml`, `robots.txt`. API JSON : `GET /api/evenements?type=&ville=&quand=&jour=&q=`.
+- **Site** : FastAPI + Jinja2, pages rendues côté serveur (lisibles sans JavaScript) : `/`, `/ville/<commune>`, `/type/<type>`, `/evenement/<id>-<titre>`, `/faq`, `/mentions-legales`, `sitemap.xml`, `robots.txt`. API JSON : `GET /api/evenements?type=&ville=&quand=&jour=&q=`.
+  - Accueil : ruban des 14 prochains jours (nombre d'événements par jour, en cours compris), raccourcis (aujourd'hui, demain, week-end, 7 et 30 jours), filtres type, commune, jour et mot-clé ; événements de plus de 3 jours regroupés dans « En ce moment ».
+  - Fiche : date, heure, type, tarif ; bloc adresse avec copie en un clic (presse-papiers, repli par sélection), itinéraire et carte OpenStreetMap ; description abrégée par la source signalée par « […] » avec un lien vers la suite ; événements à venir dans la même commune, datés ; JSON-LD Event.
+  - Icônes SVG en sprite dans la page (`base.html`), sans ressource externe. Fichiers `/static` en cache une semaine : changer `?v=` de la feuille de style après modification.
 - **Données** : NocoDB, base `TREGOR` (créée par `scripts/nocodb_init.py`) :
   - `evenements` : un événement (titre, type, dates, heure, commune, lieu, source, lien). Cocher `masque` pour retirer un événement du site ; une correction faite à la main est écrasée si la source change la même donnée.
   - `articles` : chaque article de presse lu, avec le verdict de l'IA (`evenement`, `autre`, `a_analyser`, `erreur`).
