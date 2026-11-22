@@ -9,26 +9,30 @@
 <meta property="og:title" content="{{ titre }}">
 <meta property="og:type" content="website">
 {% if canonique %}<meta property="og:url" content="{{ canonique }}">{% endif %}
-<meta name="theme-color" content="#0e3b4a">
-<link rel="preload" href="/static/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="#16302e">
+<link rel="preload" href="/static/fonts/jost-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/static/style.css?v=1">
+<link rel="icon" href="/static/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
+<link rel="stylesheet" href="/static/style.css?v=2">
 {% block tete %}{% endblock %}
 </head>
 <body>
 <a class="evitement" href="#contenu">Aller au contenu</a>
-<header class="bandeau">
-  <div class="bandeau-in">
+<header class="hero">
+  <div class="cadre">
     <a class="marque" href="/">Agenda du Trégor</a>
-    <p class="accroche">Concerts, fest-noz, marchés et sorties, de Tréguier à Locquirec</p>
+    {% block hero %}{% endblock %}
   </div>
 </header>
-<main id="contenu">
+<main id="contenu" class="cadre">
 {% block contenu %}{% endblock %}
 </main>
 <footer class="pied">
-  <p>Événements collectés automatiquement toutes les 6 heures sur Alentoor, OpenAgenda, Unidivers et actu.fr. Horaires et tarifs peuvent changer : vérifiez auprès de l'organisateur avant de vous déplacer.</p>
-  <p>Un site <a href="https://perceval.sh">Perceval</a>.</p>
+  <div class="cadre">
+    <p>Concerts, fest-noz, marchés et sorties, de Tréguier à Locquirec. Événements collectés automatiquement toutes les 6 heures sur Alentoor, OpenAgenda, Unidivers et actu.fr. Horaires et tarifs peuvent changer : vérifiez auprès de l'organisateur avant de vous déplacer.</p>
+    <a class="logo" href="https://perceval.sh"><img src="/static/perceval-logo-horizontal.svg" alt="PERCEVAL" width="150" height="26"></a>
+  </div>
 </footer>
 </body>
 </html>

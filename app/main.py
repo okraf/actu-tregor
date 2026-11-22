@@ -114,14 +114,13 @@ def page_agenda(request: Request, type_: str | None = None, ville: str | None = 
         etat.pop("ville" if canonique.startswith("/ville/") else "type" if canonique.startswith("/type/") else "", None)
         return lien(canonique, **etat)
 
-    # Ruban des 14 prochains jours : nombre d'événements ponctuels par jour avec les mêmes filtres.
+    # Ruban des 14 prochains jours : nombre d'événements ce jour-là (y compris en cours), mêmes filtres.
     auj = date.today()
     ruban = []
     for i in range(14):
         d = auj + timedelta(days=i)
         di = d.isoformat()
-        n = sum(1 for e in choisis if e["date_debut"] <= di <= e["date_fin"]
-                and (date.fromisoformat(e["date_fin"]) - date.fromisoformat(e["date_debut"])).days < LONG)
+        n = sum(1 for e in choisis if e["date_debut"] <= di <= e["date_fin"])
         ruban.append({"date": d, "n": n, "actif": jour == di, "lien": url(jour=di)})
     maxi = max([r["n"] for r in ruban] + [1])
     nom_ville = PAR_SLUG[ville]["nom"] if ville in PAR_SLUG else None

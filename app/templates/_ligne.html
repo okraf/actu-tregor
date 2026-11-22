@@ -1,9 +1,9 @@
-<li class="ev t-{{ SLUG_PAR_TYPE.get(e.type, 'autre') }}">
+<li class="ev">
   <span class="heure">{% if long %}<span class="jusqu">jusqu'au</span> {{ e.date_fin[8:10]|int }}/{{ e.date_fin[5:7] }}{% elif e.heure %}{{ e.heure|replace(":", " h ")|replace(" h 00", " h") }}{% endif %}</span>
   <div class="corps">
     <a class="titre" href="/evenement/{{ e.Id }}-{{ slug(e.titre)[:80] }}">{{ e.titre }}</a>
     <p class="meta">
-      <span class="type">{{ e.type or "Autre" }}</span>
+      <a class="type" href="/type/{{ SLUG_PAR_TYPE.get(e.type, 'autre') }}">{{ e.type or "Autre" }}</a>
       <a class="ville" href="/ville/{{ slug(e.ville) }}">{{ e.ville }}</a>{% if e.lieu %}<span class="lieu">{{ e.lieu }}</span>{% endif %}
     </p>
   </div>

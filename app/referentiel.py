@@ -57,7 +57,7 @@ TYPES = [
     ("Marché et brocante", "marche", ["vide-grenier", "vide grenier", "brocante", "braderie", "bourse", "marché", "marche de noel", "puces", "troc", "foire aux"]),
     ("Foire et salon", "salon", ["salon", "foire", "fête de la", "exposants", "créateurs", "artisans"]),
     ("Visite et patrimoine", "visite", ["visite", "patrimoine", "chapelle", "musée", "musee", "distillerie", "phare", "château", "chateau", "circuit", "découverte"]),
-    ("Fête et animation", "fete", ["fête", "fete", "animation", "carnaval", "loto", "repas", "soirée", "soiree", "bal", "kermesse", "téléthon", "telethon", "noël", "noel", "feu d'artifice", "crêpes", "concours"]),
+    ("Fête et animation", "fete", ["fête", "fete", "animation", "carnaval", "loto", "repas", "dîner", "diner", "déjeuner", "goûter", "soirée", "soiree", "bal", "kermesse", "téléthon", "telethon", "noël", "noel", "feu d'artifice", "crêpes", "concours"]),
     ("Autre", "autre", []),
 ]
 TYPE_PAR_SLUG = {t[1]: t[0] for t in TYPES}

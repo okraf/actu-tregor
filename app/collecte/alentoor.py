@@ -1,4 +1,4 @@
-"""Alentoor : agenda de chaque commune, événements en JSON-LD schema.org (jusqu'à 3 pages de 30)."""
+"""Alentoor : agenda de chaque commune, événements en JSON-LD schema.org (jusqu'à 6 pages de 30)."""
 import re
 
 from ..referentiel import CATEGORIES_ALENTOOR, COMMUNES, commune
@@ -32,7 +32,7 @@ def convertir(o: dict) -> dict | None:
 def collecter(http: Http, connus: set[str], journal: list[str]) -> list[dict]:
     vus: dict[str, dict] = {}
     for c in COMMUNES:
-        for page in (1, 2, 3):
+        for page in range(1, 7):
             url = f"https://www.alentoor.fr/{c['slug']}/agenda" + (f"?p={page}" if page > 1 else "")
             try:
                 r = http.get(url)

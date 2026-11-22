@@ -1,10 +1,7 @@
 {% extends "base.html" %}
-{% block contenu %}
-<div class="entete">
+{% block hero %}
   <h1>{{ sujet }}</h1>
-  <p class="periode">{{ libelle }}{% if nb %}, {{ nb }} événement{{ "s" if nb > 1 }}{% endif %}</p>
-</div>
-
+  <p class="periode">{{ libelle }}{% if nb %}, <span class="nb">{{ nb }}</span> événement{{ "s" if nb > 1 }}{% endif %}</p>
 <nav class="ruban" aria-label="Choisir un jour">
   <ol>
   {% for r in ruban %}
@@ -21,6 +18,8 @@
 <div class="raccourcis">
   {% for k, v in QUAND.items() %}<a href="{{ lien_quand(k) }}"{% if quand == k %} aria-current="page"{% endif %}>{{ v }}</a>{% endfor %}
 </div>
+{% endblock %}
+{% block contenu %}
 
 <form class="filtres" method="get" action="/">
   <label><span>Type</span>
@@ -57,7 +56,7 @@
 
 {% for d, evs in jours.items() %}
 <section class="journee" aria-labelledby="j{{ d.isoformat() }}">
-  <h2 id="j{{ d.isoformat() }}"><span class="jj" aria-hidden="true">{{ d.day }}</span><span class="vh">{{ d|date_fr }}</span><span class="jl" aria-hidden="true">{{ (d|date_fr).split(" ")[0] }}</span> <span class="jm" aria-hidden="true">{{ (d|date_fr).split(" ")[2] }}{% if d.year != aujourdhui.year %} {{ d.year }}{% endif %}</span></h2>
+  <h2 id="j{{ d.isoformat() }}"><span class="jl">{{ (d|date_fr).split(" ")[0] }}</span> <span class="jj">{{ d.day }}</span> <span>{{ (d|date_fr).split(" ")[2] }}{% if d.year != aujourdhui.year %} {{ d.year }}{% endif %}</span></h2>
   <ol class="liste">
   {% for e in evs %}
     {% include "_ligne.html" %}

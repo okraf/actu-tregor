@@ -1,20 +1,26 @@
 {% extends "base.html" %}
 {% block tete %}<script type="application/ld+json">{{ ld|safe }}</script>{% endblock %}
+{% block hero %}
+  <div class="fiche">
+    <h1>{{ e.titre }}</h1>
+    <p class="periode"><a class="fil-ville" href="/ville/{{ slug_ville }}">{{ e.ville }}</a></p>
+  </div>
+{% endblock %}
 {% block contenu %}
-<article class="fiche t-{{ SLUG_PAR_TYPE.get(e.type, 'autre') }}">
-  <p class="fil"><a href="/">Agenda</a> <span aria-hidden="true">/</span> <a href="/ville/{{ slug_ville }}">{{ e.ville }}</a></p>
-  <h1>{{ e.titre }}</h1>
+<article class="fiche">
   <dl class="infos">
     <div><dt>Quand</dt><dd>
-      {% if fin != debut %}Du {{ debut|date_fr }} au {{ fin|date_fr(true) }}{% else %}{{ (debut|date_fr(true))|capitalize }}{% endif %}{% if e.heure %}, {{ e.heure|replace(":", " h ")|replace(" h 00", " h") }}{% endif %}
+      {% if fin != debut %}Du {{ debut|date_fr }} au {{ fin|date_fr(true) }}{% else %}{{ (debut|date_fr(true))|capitalize }}{% endif %}{% if e.heure %}, <span class="chiffre">{{ e.heure|replace(":", " h ")|replace(" h 00", " h") }}</span>{% endif %}
     </dd></div>
     <div><dt>Où</dt><dd>{% if e.lieu %}{{ e.lieu }}{% endif %}{% if e.adresse and e.adresse != e.lieu %}{% if e.lieu %}, {% endif %}{{ e.adresse }}{% endif %}{% if e.ville not in (e.adresse or "") %}{% if e.lieu or e.adresse %}, {% endif %}<a href="/ville/{{ slug_ville }}">{{ e.ville }}</a>{% endif %}</dd></div>
     <div><dt>Type</dt><dd><a class="type" href="/type/{{ SLUG_PAR_TYPE.get(e.type, 'autre') }}">{{ e.type or "Autre" }}</a></dd></div>
     {% if e.prix %}<div><dt>Tarif</dt><dd>{{ e.prix }}</dd></div>{% endif %}
   </dl>
   {% if e.description %}<div class="texte">{% for p in e.description.split("\n") if p.strip() %}<p>{{ p }}</p>{% endfor %}</div>{% endif %}
-  {% if e.url %}<p class="source"><a href="{{ e.url }}" rel="noopener nofollow">Voir l'annonce sur {{ NOMS_SOURCES.get(e.source, e.source) }}</a></p>{% endif %}
-  {% if e.lat and e.lon %}<p class="carte"><a href="https://www.openstreetmap.org/?mlat={{ e.lat }}&amp;mlon={{ e.lon }}#map=16/{{ e.lat }}/{{ e.lon }}" rel="noopener">Situer sur la carte</a></p>{% endif %}
+  <p class="actions">
+    {% if e.url %}<a class="bouton" href="{{ e.url }}" rel="noopener nofollow">Voir l'annonce sur {{ NOMS_SOURCES.get(e.source, e.source) }}</a>{% endif %}
+    {% if e.lat and e.lon %}<a href="https://www.openstreetmap.org/?mlat={{ e.lat }}&amp;mlon={{ e.lon }}#map=16/{{ e.lat }}/{{ e.lon }}" rel="noopener">Situer sur la carte</a>{% endif %}
+  </p>
 </article>
 {% if voisins %}
 <section class="encours">
