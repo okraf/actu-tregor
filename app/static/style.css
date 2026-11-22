@@ -242,3 +242,40 @@ a.type:hover { text-decoration: underline; }
 
 /* Journées hors écran : rendu différé (moins de travail au chargement) */
 .journee, .encours { content-visibility: auto; contain-intrinsic-size: auto 600px; }
+
+/* Icônes (style des pictos de la charte : trait 1 px, un détail pourpre) */
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.icone { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.15; stroke-linecap: round; stroke-linejoin: round; vertical-align: -4px; }
+symbol .d { fill: var(--pourpre); stroke: none; }
+.icone.petite { width: 15px; height: 15px; vertical-align: -2px; margin-right: .2rem; }
+.bouton .icone, .hero .icone { --pourpre: currentColor; }
+.avec-icone { display: flex; gap: .5rem; align-items: flex-start; }
+.avec-icone .icone { margin-top: .1rem; }
+.infos dt { display: flex; align-items: center; gap: .5rem; }
+
+/* Bloc adresse : visible et copiable en un geste */
+.adresse {
+  margin: 0 0 1.75rem;
+  padding: 1.1rem 1.25rem 1rem;
+  background: var(--blanc);
+  border: 1px solid var(--encre);
+  border-radius: var(--angle);
+}
+.adresse h2 { display: flex; align-items: center; gap: .5rem; margin: 0 0 .5rem; font: 500 1.0625rem/1.4 var(--jost); }
+.adresse address { font: 500 1.25rem/1.45 var(--jost); font-style: normal; user-select: all; -webkit-user-select: all; }
+.adresse address span { display: block; }
+.adresse-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.4rem; margin-top: .9rem; }
+.adresse-actions a { display: inline-flex; align-items: center; gap: .4rem; font-weight: 500; }
+.bouton { display: inline-flex; align-items: center; gap: .5rem; border: 0; cursor: pointer; }
+button.bouton { font: 500 1rem var(--jost); min-height: 2.75rem; }
+.statut { margin: .5rem 0 0; font-size: .9375rem; min-height: 1.4em; }
+.statut:empty { min-height: 0; margin: 0; }
+
+/* Texte coupé par la source */
+.coupe { white-space: nowrap; font-family: var(--mono); font-weight: 300; }
+.suite { font-size: .9375rem; border-left: 2px solid var(--or); padding-left: .75rem; }
+
+/* Voisins : date au-dessus de l'heure */
+.quand { display: block; font: 400 .875rem/1.35 var(--jost); }
+.encours .ev { grid-template-columns: 6.5rem 1fr; }
+@media (max-width: 34rem) { .encours .ev { grid-template-columns: 5.2rem 1fr; } .adresse address { font-size: 1.125rem; } }

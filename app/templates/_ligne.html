@@ -1,10 +1,10 @@
 <li class="ev">
-  <span class="heure">{% if long %}<span class="jusqu">jusqu'au</span> {{ e.date_fin[8:10]|int }}/{{ e.date_fin[5:7] }}{% elif e.heure %}{{ e.heure|replace(":", " h ")|replace(" h 00", " h") }}{% endif %}</span>
+  <span class="heure">{% if avec_date %}<span class="quand">{% if e.date_debut <= aujourdhui_jour() and e.date_fin != e.date_debut %}jusqu'au {{ e.date_fin|date_courte }}{% else %}{{ e.date_debut|date_courte }}{% endif %}</span>{% if e.heure %}{{ e.heure|replace(":", " h ")|replace(" h 00", " h") }}{% endif %}{% elif long %}<span class="jusqu">jusqu'au</span> {{ e.date_fin[8:10]|int }}/{{ e.date_fin[5:7] }}{% elif e.heure %}{{ e.heure|replace(":", " h ")|replace(" h 00", " h") }}{% endif %}</span>
   <div class="corps">
     <a class="titre" href="/evenement/{{ e.Id }}-{{ slug(e.titre)[:80] }}">{{ e.titre }}</a>
     <p class="meta">
       <a class="type" href="/type/{{ SLUG_PAR_TYPE.get(e.type, 'autre') }}">{{ e.type or "Autre" }}</a>
-      <a class="ville" href="/ville/{{ slug(e.ville) }}">{{ e.ville }}</a>{% if e.lieu %}<span class="lieu">{{ e.lieu }}</span>{% endif %}
+      <a class="ville" href="/ville/{{ slug(e.ville) }}"><svg class="icone petite" aria-hidden="true"><use href="#i-lieu"/></svg>{{ e.ville }}</a>{% if e.lieu %}<span class="lieu">{{ e.lieu }}</span>{% endif %}
     </p>
   </div>
 </li>

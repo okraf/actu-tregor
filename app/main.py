@@ -14,7 +14,7 @@ from fastapi.templating import Jinja2Templates
 from . import donnees
 from .collecte import passage
 from .config import config
-from .referentiel import COMMUNES, PAR_SLUG, SLUG_PAR_TYPE, TYPE_PAR_SLUG, TYPES, slug
+from .referentiel import COMMUNES, PAR_INSEE, PAR_SLUG, SLUG_PAR_TYPE, TYPE_PAR_SLUG, TYPES, slug
 
 ICI = Path(__file__).resolve().parent
 app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
@@ -33,8 +33,18 @@ def date_fr(d: date, annee: bool = False) -> str:
     return f"{JOURS[d.weekday()]} {d.day}{'er' if d.day == 1 else ''} {MOIS[d.month - 1]}" + (f" {d.year}" if annee else "")
 
 
+MOIS_COURTS = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."]
+
+
+def date_courte(iso: str) -> str:
+    """'2026-11-28' → 'sam. 28 nov.'"""
+    d = date.fromisoformat(iso)
+    return f"{JOURS_COURTS[d.weekday()]} {d.day} {MOIS_COURTS[d.month - 1]}"
+
+
 gabarits.env.filters["date_fr"] = date_fr
-gabarits.env.globals.update(url_site=config()["site"]["url"].rstrip("/"), CONTACT="https://perceval.sh/#contact", TYPES=TYPES, SLUG_PAR_TYPE=SLUG_PAR_TYPE, slug=slug,
+gabarits.env.filters["date_courte"] = date_courte
+gabarits.env.globals.update(aujourdhui_jour=lambda: date.today().isoformat(), url_site=config()["site"]["url"].rstrip("/"), CONTACT="https://perceval.sh/#contact", TYPES=TYPES, SLUG_PAR_TYPE=SLUG_PAR_TYPE, slug=slug,
                             NOMS_SOURCES={"alentoor": "Alentoor", "openagenda": "OpenAgenda", "unidivers": "Unidivers", "actu.fr": "actu.fr"})
 
 
@@ -156,6 +166,17 @@ def par_type(request: Request, type_: str, ville: str | None = None, quand: str 
     return page_agenda(request, type_, ville or None, quand, jour, q, canonique=f"/type/{type_}")
 
 
+FINS = (".", "!", "?", "»", '"', ")", "”")
+
+
+def description_coupee(texte: str) -> tuple[list[str], bool]:
+    """Paragraphes de la description, et True si elle a été coupée (par la source ou à la collecte)."""
+    t = texte.strip()
+    coupe = t.endswith(("…", "...")) or (len(t) > 80 and not t.endswith(FINS))
+    t = t.rstrip(".… ").rstrip() if t.endswith(("…", "...")) else t
+    return [p.strip() for p in t.split("\n") if p.strip()], coupe
+
+
 @app.get("/evenement/{ident}", response_class=HTMLResponse)
 def fiche(request: Request, ident: str):
     try:
@@ -174,11 +195,20 @@ def fiche(request: Request, ident: str):
                                    "addressRegion": "Bretagne", "addressCountry": "FR"}},
           "description": (e.get("description") or "")[:500], "url": base + chemin}
     voisins = [x for x in donnees.a_venir() if x["ville"] == e["ville"] and x["Id"] != e["Id"]][:8]
+    # Adresse sur des lignes séparées, et en une ligne pour la copie.
+    commune = PAR_INSEE.get(e.get("insee") or "")
+    lignes = [e["lieu"]] if e.get("lieu") else []
+    if e.get("adresse") and e["adresse"] != e.get("lieu"):
+        lignes.append(e["adresse"])
+    if e["ville"].lower() not in (e.get("adresse") or "").lower():
+        lignes.append(f"{commune['cp']} {e['ville']}" if commune else e["ville"])
+    paragraphes, coupe = description_coupee(e.get("description") or "")
     return gabarits.TemplateResponse(request, "evenement.html", {
         "request": request, "e": e, "ld": json.dumps(ld, ensure_ascii=False).replace("</", "<\\/"), "canonique": base + chemin,
         "debut": date.fromisoformat(e["date_debut"]), "fin": date.fromisoformat(e["date_fin"]), "voisins": voisins,
         "titre": f"{e['titre']} à {e['ville']}", "description": (e.get("description") or e["titre"])[:155],
-        "slug_ville": slug(e["ville"])})
+        "slug_ville": slug(e["ville"]), "adresse_lignes": lignes, "adresse_copie": ", ".join(lignes),
+        "paragraphes": paragraphes, "coupe": coupe})
 
 
 @app.get("/api/evenements")

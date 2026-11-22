@@ -9,23 +9,70 @@
 {% block contenu %}
 <article class="fiche">
   <dl class="infos">
-    <div><dt>Quand</dt><dd>
-      {% if fin != debut %}Du {{ debut|date_fr }} au {{ fin|date_fr(true) }}{% else %}{{ (debut|date_fr(true))|capitalize }}{% endif %}{% if e.heure %}, <span class="chiffre">{{ e.heure|replace(":", " h ")|replace(" h 00", " h") }}</span>{% endif %}
+    <div><dt><svg class="icone" aria-hidden="true"><use href="#i-calendrier"/></svg>Quand</dt><dd>
+      {% if fin != debut %}Du {{ debut|date_fr }} au {{ fin|date_fr(true) }}{% else %}{{ (debut|date_fr(true))|capitalize }}{% endif %}
     </dd></div>
-    <div><dt>Où</dt><dd>{% if e.lieu %}{{ e.lieu }}{% endif %}{% if e.adresse and e.adresse != e.lieu %}{% if e.lieu %}, {% endif %}{{ e.adresse }}{% endif %}{% if e.ville not in (e.adresse or "") %}{% if e.lieu or e.adresse %}, {% endif %}<a href="/ville/{{ slug_ville }}">{{ e.ville }}</a>{% endif %}</dd></div>
-    <div><dt>Type</dt><dd><a class="type" href="/type/{{ SLUG_PAR_TYPE.get(e.type, 'autre') }}">{{ e.type or "Autre" }}</a></dd></div>
-    {% if e.prix %}<div><dt>Tarif</dt><dd>{{ e.prix }}</dd></div>{% endif %}
+    {% if e.heure %}<div><dt><svg class="icone" aria-hidden="true"><use href="#i-horloge"/></svg>Heure</dt><dd class="chiffre">{{ e.heure|replace(":", " h ")|replace(" h 00", " h") }}</dd></div>{% endif %}
+    <div><dt><svg class="icone" aria-hidden="true"><use href="#i-type"/></svg>Type</dt><dd><a class="type" href="/type/{{ SLUG_PAR_TYPE.get(e.type, 'autre') }}">{{ e.type or "Autre" }}</a></dd></div>
+    {% if e.prix %}<div><dt><svg class="icone" aria-hidden="true"><use href="#i-tarif"/></svg>Tarif</dt><dd>{{ e.prix }}</dd></div>{% endif %}
   </dl>
-  {% if e.description %}<div class="texte">{% for p in e.description.split("\n") if p.strip() %}<p>{{ p }}</p>{% endfor %}</div>{% endif %}
+
+  <section class="adresse" aria-labelledby="titre-adresse">
+    <h2 id="titre-adresse"><svg class="icone" aria-hidden="true"><use href="#i-lieu"/></svg>Adresse</h2>
+    <address id="adresse-texte">{% for l in adresse_lignes %}<span>{{ l }}</span>{% endfor %}</address>
+    <div class="adresse-actions">
+      <button type="button" class="bouton" id="copier-adresse" data-adresse="{{ adresse_copie }}">
+        <svg class="icone" aria-hidden="true"><use href="#i-copier"/></svg><span>Copier l'adresse</span>
+      </button>
+      {% if e.lat and e.lon %}
+      <a href="https://www.openstreetmap.org/directions?to={{ e.lat }}%2C{{ e.lon }}" rel="noopener"><svg class="icone" aria-hidden="true"><use href="#i-itineraire"/></svg>Itinéraire</a>
+      <a href="https://www.openstreetmap.org/?mlat={{ e.lat }}&amp;mlon={{ e.lon }}#map=16/{{ e.lat }}/{{ e.lon }}" rel="noopener"><svg class="icone" aria-hidden="true"><use href="#i-carte"/></svg>Voir sur la carte</a>
+      {% endif %}
+    </div>
+    <p class="statut" role="status" aria-live="polite"></p>
+  </section>
+
+  {% if paragraphes %}
+  <div class="texte">
+    {% for p in paragraphes %}<p>{{ p }}{% if loop.last and coupe %} <span class="coupe" title="Texte coupé : la suite est sur l'annonce d'origine">[…]</span>{% endif %}</p>{% endfor %}
+    {% if coupe %}<p class="suite">Description abrégée par la source. {% if e.url %}<a href="{{ e.url }}" rel="noopener nofollow">Lire la suite sur {{ NOMS_SOURCES.get(e.source, e.source) }}</a>.{% endif %}</p>{% endif %}
+  </div>
+  {% endif %}
+  {% if e.url %}
   <p class="actions">
-    {% if e.url %}<a class="bouton" href="{{ e.url }}" rel="noopener nofollow">Voir l'annonce sur {{ NOMS_SOURCES.get(e.source, e.source) }}</a>{% endif %}
-    {% if e.lat and e.lon %}<a href="https://www.openstreetmap.org/?mlat={{ e.lat }}&amp;mlon={{ e.lon }}#map=16/{{ e.lat }}/{{ e.lon }}" rel="noopener">Situer sur la carte</a>{% endif %}
+    <a class="bouton" href="{{ e.url }}" rel="noopener nofollow"><span>Voir l'annonce sur {{ NOMS_SOURCES.get(e.source, e.source) }}</span><svg class="icone" aria-hidden="true"><use href="#i-externe"/></svg></a>
   </p>
+  {% endif %}
 </article>
 {% if voisins %}
 <section class="encours">
-  <h2>Aussi à {{ e.ville }}</h2>
-  <ol class="liste">{% for e in voisins %}{% include "_ligne.html" %}{% endfor %}</ol>
+  <h2>Prochainement à {{ e.ville }}</h2>
+  <ol class="liste">{% for e in voisins %}{% set avec_date = true %}{% include "_ligne.html" %}{% endfor %}</ol>
 </section>
 {% endif %}
+<script>
+(function () {
+  var b = document.getElementById('copier-adresse');
+  var statut = document.querySelector('.adresse .statut');
+  var libelle = b.querySelector('span');
+  var icone = b.querySelector('use');
+  function confirmer() {
+    libelle.textContent = 'Adresse copiée';
+    icone.setAttribute('href', '#i-valide');
+    statut.textContent = 'Adresse copiée dans le presse-papiers.';
+    setTimeout(function () { libelle.textContent = "Copier l'adresse"; icone.setAttribute('href', '#i-copier'); statut.textContent = ''; }, 2500);
+  }
+  function selectionner() {
+    var r = document.createRange();
+    r.selectNodeContents(document.getElementById('adresse-texte'));
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    statut.textContent = 'Adresse sélectionnée : copiez-la avec Ctrl+C ou Cmd+C.';
+  }
+  b.addEventListener('click', function () {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(b.dataset.adresse).then(confirmer, selectionner);
+    } else { selectionner(); }
+  });
+})();
+</script>
 {% endblock %}

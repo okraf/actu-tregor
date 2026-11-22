@@ -20,10 +20,23 @@
 <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/static/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
-<link rel="stylesheet" href="/static/style.css?v=3">
+<link rel="stylesheet" href="/static/style.css?v=4">
 {% block tete %}{% endblock %}
 </head>
 <body>
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-calendrier" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="1"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><rect class="d" x="13.5" y="13" width="3.5" height="3.5" rx=".5"/></symbol>
+  <symbol id="i-horloge" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/><circle class="d" cx="12" cy="12" r="1.2"/></symbol>
+  <symbol id="i-lieu" viewBox="0 0 24 24"><path d="M12 21s-6.5-6.2-6.5-11.2a6.5 6.5 0 0 1 13 0C18.5 14.8 12 21 12 21z"/><circle class="d" cx="12" cy="9.8" r="2.2"/></symbol>
+  <symbol id="i-type" viewBox="0 0 24 24"><path d="M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l8 8a1 1 0 0 1 0 1.4l-7.1 7.1a1 1 0 0 1-1.4 0z"/><circle class="d" cx="8" cy="8" r="1.6"/></symbol>
+  <symbol id="i-tarif" viewBox="0 0 24 24"><path d="M3.5 7h17v3a2 2 0 0 0 0 4v3h-17v-3a2 2 0 0 0 0-4z"/><path d="M14.5 7v10" stroke-dasharray="1 2"/><circle class="d" cx="9" cy="12" r="1.4"/></symbol>
+  <symbol id="i-copier" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="12" height="12" rx="1"/><path d="M15.5 8.5V4.5a1 1 0 0 0-1-1h-10a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h4"/></symbol>
+  <symbol id="i-valide" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-carte" viewBox="0 0 24 24"><path d="M3.5 6.5l5.5-2 6 2 5.5-2v13l-5.5 2-6-2-5.5 2z"/><path d="M9 4.5v13M15 6.5v13"/></symbol>
+  <symbol id="i-itineraire" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h7.5a3 3 0 0 0 0-6h-7a3 3 0 0 1 0-6H16"/></symbol>
+  <symbol id="i-externe" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M8.5 7.5L4 12l4.5 4.5M15.5 7.5L20 12l-4.5 4.5"/></symbol>
+</svg>
 <a class="evitement" href="#contenu">Aller au contenu</a>
 <header class="hero">
   <div class="cadre">
@@ -37,7 +50,7 @@
 <footer class="pied">
   <div class="cadre">
     <p>Concerts, fest-noz, marchés et sorties, de Tréguier à Locquirec. Événements collectés automatiquement toutes les 6 heures sur Alentoor, OpenAgenda, Unidivers et actu.fr. Horaires et tarifs peuvent changer : vérifiez auprès de l'organisateur avant de vous déplacer.</p>
-    <p>Le code de ce site est ouvert : <a href="https://github.com/okraf/actu-tregor" rel="noopener">voir le dépôt sur GitHub</a>.</p>
+    <p class="avec-icone"><svg class="icone" aria-hidden="true"><use href="#i-code"/></svg><span>Le code de ce site est ouvert : <a href="https://github.com/okraf/actu-tregor" rel="noopener">voir le dépôt sur GitHub</a>.</span></p>
     <nav class="liens-pied" aria-label="Pages d'information">
       <a href="/faq">Questions fréquentes</a>
       <a href="/mentions-legales">Mentions légales</a>
