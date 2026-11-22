@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block hero %}
+  <h1>Mentions légales</h1>
+  <p class="periode">Dernière mise à jour : 22 novembre 2026</p>
+{% endblock %}
+{% block contenu %}
+<div class="page-texte">
+  <h2>Éditeur</h2>
+  <p>PERCEVAL, SARL immatriculée au RCS de Saint-Brieuc sous le numéro 942 431 412. SIRET 942 431 412 00017. TVA FR37942431412. Siège social : Tonquédec (22140), France. Directeur de la publication : Julien Pollet, gérant. Contact : <a href="{{ CONTACT }}">page contact de PERCEVAL</a>.</p>
+  <h2>Hébergement</h2>
+  <p>OVH SAS, 2 rue Kellermann, 59100 Roubaix, France. Serveur situé dans l'Union européenne.</p>
+  <h2>Données personnelles et cookies</h2>
+  <p>Ce site ne dépose aucun cookie, ne demande aucun compte et n'utilise aucun outil de mesure d'audience ni de ressource tierce (polices et images sont servies depuis ce serveur). Les journaux techniques du serveur (adresse IP, page demandée, date) sont conservés pour la sécurité du service, puis supprimés. Pour toute demande sur vos données, passez par la <a href="{{ CONTACT }}">page contact</a>.</p>
+  <h2>Sources des événements</h2>
+  <p>Les événements sont repris d'Alentoor, d'OpenAgenda (données ouvertes), d'Unidivers et des articles d'actu.fr consacrés au Trégor. Titres, dates, lieux et descriptions courtes restent la propriété de leurs auteurs ; chaque fiche cite sa source et renvoie vers l'annonce d'origine. Un organisateur qui souhaite retirer ou corriger une annonce peut nous écrire depuis la <a href="{{ CONTACT }}">page contact</a>.</p>
+  <h2>Propriété intellectuelle</h2>
+  <p>La mise en page, les textes et les éléments graphiques de ce site appartiennent à PERCEVAL. Le code est publié sur <a href="https://github.com/okraf/actu-tregor" rel="noopener">GitHub</a>.</p>
+</div>
+{% endblock %}

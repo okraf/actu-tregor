@@ -225,3 +225,20 @@ a.type:hover { text-decoration: underline; }
 }
 .hero a.fil-ville { color: var(--papier); font-weight: 500; }
 .hero .fiche h1 { margin-top: 1.5rem; }
+
+/* Pages d'information */
+.page-texte { max-width: 46rem; padding-top: 1.5rem; }
+.page-texte h2 { font: 400 1.875rem/1.2 var(--jost); letter-spacing: -.02em; margin: 2rem 0 .5rem; padding-bottom: .4rem; border-bottom: 1px solid var(--or); }
+.page-texte p { margin: 0 0 1rem; }
+.question { border-bottom: 1px solid var(--gris-clair); }
+.question summary { cursor: pointer; padding: 1rem 0; font: 500 1.25rem/1.35 var(--jost); list-style: none; display: flex; gap: .75rem; align-items: baseline; }
+.question summary::-webkit-details-marker { display: none; }
+.question summary::before { content: ""; width: 10px; height: 10px; flex: none; background: url("/static/perceval-croix-or.svg") center / contain no-repeat; transition: transform .2s; }
+.question[open] summary::before { transform: rotate(45deg); }
+.question p { margin: 0 0 1.1rem 1.6rem; max-width: 68ch; }
+.page-texte .retour { margin-top: 2rem; }
+.liens-pied { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; font-size: .9375rem; }
+@media (prefers-reduced-motion: reduce) { .question summary::before { transition: none; } }
+
+/* Journées hors écran : rendu différé (moins de travail au chargement) */
+.journee, .encours { content-visibility: auto; contain-intrinsic-size: auto 600px; }

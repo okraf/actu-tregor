@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block tete %}<script type="application/ld+json">{{ ld|safe }}</script>{% endblock %}
+{% block hero %}
+  <h1>Questions fréquentes</h1>
+  <p class="periode">Les sources, l'ajout d'un événement, les communes couvertes.</p>
+{% endblock %}
+{% block contenu %}
+<div class="page-texte">
+{% for q, r in faq %}
+  <details class="question"{% if loop.first %} open{% endif %}>
+    <summary>{{ q }}</summary>
+    <p>{% if "page contact" in r %}{{ r.split("page contact")[0] }}<a href="{{ CONTACT }}">page contact</a>{{ r.split("page contact")[1] }}{% elif "GitHub" in r %}{{ r.split("GitHub")[0] }}<a href="https://github.com/okraf/actu-tregor" rel="noopener">GitHub</a>{{ r.split("GitHub")[1] }}{% else %}{{ r }}{% endif %}</p>
+  </details>
+{% endfor %}
+  <p class="retour"><a href="/">Voir l'agenda</a></p>
+</div>
+{% endblock %}

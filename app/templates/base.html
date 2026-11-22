@@ -8,13 +8,19 @@
 {% if canonique %}<link rel="canonical" href="{{ canonique }}">{% endif %}
 <meta property="og:title" content="{{ titre }}">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Agenda du Trégor">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="{{ url_site }}/static/partage.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 {% if canonique %}<meta property="og:url" content="{{ canonique }}">{% endif %}
 <meta name="theme-color" content="#16302e">
 <link rel="preload" href="/static/fonts/jost-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/static/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
-<link rel="stylesheet" href="/static/style.css?v=2">
+<link rel="stylesheet" href="/static/style.css?v=3">
 {% block tete %}{% endblock %}
 </head>
 <body>
@@ -32,6 +38,12 @@
   <div class="cadre">
     <p>Concerts, fest-noz, marchés et sorties, de Tréguier à Locquirec. Événements collectés automatiquement toutes les 6 heures sur Alentoor, OpenAgenda, Unidivers et actu.fr. Horaires et tarifs peuvent changer : vérifiez auprès de l'organisateur avant de vous déplacer.</p>
     <p>Le code de ce site est ouvert : <a href="https://github.com/okraf/actu-tregor" rel="noopener">voir le dépôt sur GitHub</a>.</p>
+    <nav class="liens-pied" aria-label="Pages d'information">
+      <a href="/faq">Questions fréquentes</a>
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="{{ CONTACT }}">Contact</a>
+      <a href="#contenu">Revenir en haut</a>
+    </nav>
     <a class="logo" href="https://perceval.sh"><img src="/static/perceval-logo-horizontal.svg" alt="PERCEVAL" width="150" height="26"></a>
   </div>
 </footer>

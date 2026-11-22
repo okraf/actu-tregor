@@ -34,7 +34,7 @@ def date_fr(d: date, annee: bool = False) -> str:
 
 
 gabarits.env.filters["date_fr"] = date_fr
-gabarits.env.globals.update(TYPES=TYPES, SLUG_PAR_TYPE=SLUG_PAR_TYPE, slug=slug,
+gabarits.env.globals.update(url_site=config()["site"]["url"].rstrip("/"), CONTACT="https://perceval.sh/#contact", TYPES=TYPES, SLUG_PAR_TYPE=SLUG_PAR_TYPE, slug=slug,
                             NOMS_SOURCES={"alentoor": "Alentoor", "openagenda": "OpenAgenda", "unidivers": "Unidivers", "actu.fr": "actu.fr"})
 
 
@@ -207,6 +207,51 @@ def collecte(x_cle_collecte: str = Header(default=""), source: str | None = None
     return rapport
 
 
+FAQ = [
+    ("D'où viennent les événements ?",
+     "Ils sont relevés automatiquement toutes les six heures sur Alentoor, OpenAgenda et Unidivers, et dans les articles du Trégor publiés par actu.fr, lus par une intelligence artificielle qui repère les annonces datées. Chaque fiche renvoie vers l'annonce d'origine."),
+    ("Comment ajouter mon événement ?",
+     "Publiez-le sur OpenAgenda ou Alentoor, gratuitement : il apparaîtra ici au passage suivant, en moins de six heures. Pensez à indiquer la commune, la date et l'heure."),
+    ("Un événement est annulé ou contient une erreur, que faire ?",
+     "Corrigez-le d'abord à la source (le site de l'annonce d'origine) : la mise à jour suivra ici. Si l'erreur vient de ce site, écrivez-nous depuis la page contact avec le lien de la fiche."),
+    ("Quelles communes sont couvertes ?",
+     "Les 57 communes de Lannion-Trégor Communauté, de Tréguier à Plestin-les-Grèves et de Perros-Guirec à Plouaret, et le Trégor finistérien : Locquirec, Guimaëc, Lanmeur, Plougasnou, Saint-Jean-du-Doigt, Plouégat-Guérand, Guerlesquin et Botsorhel."),
+    ("Les horaires et les tarifs sont-ils fiables ?",
+     "Ils sont repris tels que les organisateurs les publient. Un horaire peut changer au dernier moment : vérifiez sur l'annonce d'origine avant de vous déplacer."),
+    ("Le site est-il gratuit ? Y a-t-il de la publicité ?",
+     "Oui, il est gratuit, sans publicité, sans compte et sans cookie. Son code est ouvert sur GitHub."),
+]
+
+
+def page_simple(request: Request, gabarit: str, titre: str, description: str, chemin: str, **extra):
+    base = config()["site"]["url"].rstrip("/")
+    return gabarits.TemplateResponse(request, gabarit, {"request": request, "titre": titre, "description": description,
+                                                        "canonique": base + chemin, **extra})
+
+
+@app.get("/faq", response_class=HTMLResponse)
+def faq(request: Request):
+    ld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": r}} for q, r in FAQ]}
+    return page_simple(request, "faq.html", "Questions fréquentes", "D'où viennent les événements, comment ajouter le vôtre, "
+                       "quelles communes sont couvertes : les réponses.", "/faq", faq=FAQ,
+                       ld=json.dumps(ld, ensure_ascii=False).replace("</", "<\\/"))
+
+
+@app.get("/mentions-legales", response_class=HTMLResponse)
+def mentions(request: Request):
+    return page_simple(request, "mentions.html", "Mentions légales", "Éditeur, hébergeur, données personnelles et sources de "
+                       "l'agenda du Trégor.", "/mentions-legales")
+
+
+@app.middleware("http")
+async def cache_statique(request: Request, call_next):
+    reponse = await call_next(request)
+    if request.url.path.startswith("/static/") and reponse.status_code == 200:
+        reponse.headers["Cache-Control"] = "public, max-age=604800"
+    return reponse
+
+
 @app.get("/sante")
 def sante():
     return PlainTextResponse("ok")
@@ -225,7 +270,7 @@ def sitemap():
         evs = donnees.a_venir()
     except Exception:
         evs = []
-    urls = [f"{base}/"] + [f"{base}/type/{t[1]}" for t in TYPES if any(e.get("type") == t[0] for e in evs)]
+    urls = [f"{base}/", f"{base}/faq", f"{base}/mentions-legales"] + [f"{base}/type/{t[1]}" for t in TYPES if any(e.get("type") == t[0] for e in evs)]
     urls += [f"{base}/ville/{c['slug']}" for c in COMMUNES if any(e["ville"] == c["nom"] for e in evs)]
     urls += [f"{base}/evenement/{e['Id']}-{slug(e['titre'])[:80]}" for e in evs]
     corps = "".join(f"<url><loc>{u}</loc></url>" for u in urls)
