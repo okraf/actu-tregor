@@ -1,6 +1,6 @@
 from datetime import date, datetime
 
-from app.collecte import actu, alentoor
+from app.collecte import actu, alentoor, unidivers
 from app.collecte.outils import PARIS, casse, date_heure
 from app.referentiel import classer, cle_doublon, commune
 
@@ -55,3 +55,12 @@ def test_actu_ville_hors_tregor():
     art = {"titre": "Chausson", "url": "u", "ville": "Penvénan", "description": "", "categories": "Penvénan",
            "publie_le": datetime(2026, 11, 20, 6, 30, tzinfo=PARIS)}
     assert actu.vers_evenement(art, {"evenement": True, "date_debut": "2026-11-28", "ville": "Vannes"}) is None
+
+
+def test_unidivers_titre():
+    assert unidivers.nettoyer_titre("Ciné de la Baie L’affaire Bojarski Salle municipale Plougasnou", "Plougasnou", "Plougasnou",
+                                    "Salle municipale", "") == "Ciné de la Baie L’affaire Bojarski"
+    assert unidivers.nettoyer_titre("Vide grenier de Noël Rue des écoles Trégastel", "Trégastel", "Trégastel", "Rue des écoles",
+                                    "Rue des écoles") == "Vide grenier de Noël"
+    assert unidivers.nettoyer_titre("Lannion", "Lannion") == "Lannion"
+    assert unidivers.nettoyer_titre("Marché de Noël de Lanmeur", "Lanmeur") == "Marché de Noël de Lanmeur"

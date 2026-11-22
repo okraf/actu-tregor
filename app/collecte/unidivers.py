@@ -1,4 +1,5 @@
 """Unidivers : flux RSS des événements par ville, puis fiche de chaque nouvel événement (JSON-LD schema.org)."""
+import html
 import xml.etree.ElementTree as ET
 
 from ..referentiel import COMMUNES, commune
@@ -6,6 +7,25 @@ from .outils import Http, date_heure, est_evenement, evenement, jsonld, nombre
 
 NOM = "unidivers"
 MAX_FICHES = 200  # fiches lues par passage (les suivantes au prochain passage)
+
+
+PREPOSITIONS = {"de", "du", "des", "à", "a", "au", "aux", "en", "sur", "pour", "et", "le", "la", "les"}
+
+
+def nettoyer_titre(titre: str, *suffixes: str) -> str:
+    """Unidivers ajoute lieu, rue et commune à la fin du titre : on les retire (dans n'importe quel ordre)."""
+    t = html.unescape(titre or "").strip()
+    change = True
+    while change:
+        change = False
+        for s in sorted({x.strip() for x in suffixes if x and x.strip()}, key=len, reverse=True):
+            if len(t) > len(s) + 3 and t.lower().endswith(s.lower()):
+                reste = t[: -len(s)].rstrip(" ,-–")
+                dernier = reste.split()[-1].lower() if reste.split() else ""
+                if dernier in PREPOSITIONS or dernier.endswith(("d'", "d’", "l'", "l’")):
+                    continue  # « Marché de Noël de Lanmeur » : la commune fait partie du titre
+                t, change = reste, True
+    return t
 
 
 def convertir(o: dict, url: str) -> dict | None:
@@ -20,7 +40,9 @@ def convertir(o: dict, url: str) -> dict | None:
     offre = o.get("offers") if isinstance(o.get("offers"), dict) else {}
     prix = offre.get("price")
     return evenement(
-        uid=f"unidivers:{url}", source=NOM, titre=o.get("name"), commune=c, date_debut=debut, date_fin=fin,
+        uid=f"unidivers:{url}", source=NOM,
+        titre=nettoyer_titre(o.get("name"), adr.get("addressLocality", ""), c["nom"], html.unescape(lieu.get("name", "")),
+                             adr.get("streetAddress", "")), commune=c, date_debut=debut, date_fin=fin,
         heure=heure, lieu=lieu.get("name", ""), adresse=adr.get("streetAddress", ""),
         description=o.get("description", ""), url=url, lat=nombre(geo.get("latitude")), lon=nombre(geo.get("longitude")),
         prix="" if prix in (None, "", "0.00") else f"{prix} €",
