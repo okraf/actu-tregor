@@ -1,0 +1,20 @@
+# Copier en config.toml (ignoré par git) et renseigner. Monté en lecture seule dans le conteneur.
+[site]
+url = "https://tregor.example.org"
+# Clé exigée par POST /api/collecte (en-tête X-Cle-Collecte). Générer : openssl rand -hex 24
+cle_collecte = ""
+
+[nocodb]
+url = "http://nocodb:8080"
+token = ""
+table_evenements = ""
+table_articles = ""
+table_collectes = ""
+
+[ia]
+# API Ollama native (/api/chat). Vide = articles de presse laissés en « a_analyser ».
+url = ""
+cle = ""
+modele = ""
+# Autorité racine du certificat de l'API (chemin dans le conteneur), vide = magasin système.
+ca = ""

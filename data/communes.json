@@ -1,0 +1,522 @@
+[
+ {
+  "insee": "22006",
+  "nom": "Berhet",
+  "slug": "berhet",
+  "cp": "22140",
+  "lat": 48.6975,
+  "lon": -3.3089
+ },
+ {
+  "insee": "29014",
+  "nom": "Botsorhel",
+  "slug": "botsorhel",
+  "cp": "29650",
+  "lat": 48.508,
+  "lon": -3.6282
+ },
+ {
+  "insee": "22028",
+  "nom": "Camlez",
+  "slug": "camlez",
+  "cp": "22450",
+  "lat": 48.7827,
+  "lon": -3.3174
+ },
+ {
+  "insee": "22030",
+  "nom": "Caouënnec-Lanvézéac",
+  "slug": "caouennec-lanvezeac",
+  "cp": "22300",
+  "lat": 48.7067,
+  "lon": -3.368
+ },
+ {
+  "insee": "22034",
+  "nom": "Cavan",
+  "slug": "cavan",
+  "cp": "22140",
+  "lat": 48.6832,
+  "lon": -3.3563
+ },
+ {
+  "insee": "22041",
+  "nom": "Coatascorn",
+  "slug": "coatascorn",
+  "cp": "22140",
+  "lat": 48.6692,
+  "lon": -3.2601
+ },
+ {
+  "insee": "22042",
+  "nom": "Coatréven",
+  "slug": "coatreven",
+  "cp": "22450",
+  "lat": 48.7641,
+  "lon": -3.3235
+ },
+ {
+  "insee": "29067",
+  "nom": "Guerlesquin",
+  "slug": "guerlesquin",
+  "cp": "29650",
+  "lat": 48.5289,
+  "lon": -3.5832
+ },
+ {
+  "insee": "29073",
+  "nom": "Guimaëc",
+  "slug": "guimaec",
+  "cp": "29620",
+  "lat": 48.6814,
+  "lon": -3.7008
+ },
+ {
+  "insee": "22085",
+  "nom": "Kerbors",
+  "slug": "kerbors",
+  "cp": "22610",
+  "lat": 48.8254,
+  "lon": -3.1829
+ },
+ {
+  "insee": "22090",
+  "nom": "Kermaria-Sulard",
+  "slug": "kermaria-sulard",
+  "cp": "22450",
+  "lat": 48.7753,
+  "lon": -3.3748
+ },
+ {
+  "insee": "22264",
+  "nom": "La Roche-Jaudy",
+  "slug": "la-roche-jaudy",
+  "cp": "22450",
+  "lat": 48.7304,
+  "lon": -3.23
+ },
+ {
+  "insee": "22101",
+  "nom": "Langoat",
+  "slug": "langoat",
+  "cp": "22450",
+  "lat": 48.7325,
+  "lon": -3.3001
+ },
+ {
+  "insee": "22110",
+  "nom": "Lanmérin",
+  "slug": "lanmerin",
+  "cp": "22300",
+  "lat": 48.7394,
+  "lon": -3.3539
+ },
+ {
+  "insee": "29113",
+  "nom": "Lanmeur",
+  "slug": "lanmeur",
+  "cp": "29620",
+  "lat": 48.644,
+  "lon": -3.7187
+ },
+ {
+  "insee": "22111",
+  "nom": "Lanmodez",
+  "slug": "lanmodez",
+  "cp": "22610",
+  "lat": 48.8486,
+  "lon": -3.0778
+ },
+ {
+  "insee": "22113",
+  "nom": "Lannion",
+  "slug": "lannion",
+  "cp": "22300",
+  "lat": 48.7454,
+  "lon": -3.4697
+ },
+ {
+  "insee": "22119",
+  "nom": "Lanvellec",
+  "slug": "lanvellec",
+  "cp": "22420",
+  "lat": 48.6069,
+  "lon": -3.5285
+ },
+ {
+  "insee": "22387",
+  "nom": "Le Vieux-Marché",
+  "slug": "le-vieux-marche",
+  "cp": "22420",
+  "lat": 48.6148,
+  "lon": -3.44
+ },
+ {
+  "insee": "22127",
+  "nom": "Lézardrieux",
+  "slug": "lezardrieux",
+  "cp": "22740",
+  "lat": 48.8048,
+  "lon": -3.1051
+ },
+ {
+  "insee": "29133",
+  "nom": "Locquirec",
+  "slug": "locquirec",
+  "cp": "29241",
+  "lat": 48.6818,
+  "lon": -3.6708
+ },
+ {
+  "insee": "22131",
+  "nom": "Loguivy-Plougras",
+  "slug": "loguivy-plougras",
+  "cp": "22780",
+  "lat": 48.511,
+  "lon": -3.4824
+ },
+ {
+  "insee": "22134",
+  "nom": "Louannec",
+  "slug": "louannec",
+  "cp": "22700",
+  "lat": 48.7791,
+  "lon": -3.4104
+ },
+ {
+  "insee": "22141",
+  "nom": "Mantallot",
+  "slug": "mantallot",
+  "cp": "22450",
+  "lat": 48.7081,
+  "lon": -3.291
+ },
+ {
+  "insee": "22152",
+  "nom": "Minihy-Tréguier",
+  "slug": "minihy-treguier",
+  "cp": "22220",
+  "lat": 48.7696,
+  "lon": -3.2578
+ },
+ {
+  "insee": "22166",
+  "nom": "Penvénan",
+  "slug": "penvenan",
+  "cp": "22710",
+  "lat": 48.8223,
+  "lon": -3.3016
+ },
+ {
+  "insee": "22168",
+  "nom": "Perros-Guirec",
+  "slug": "perros-guirec",
+  "cp": "22700",
+  "lat": 48.8376,
+  "lon": -3.476
+ },
+ {
+  "insee": "22194",
+  "nom": "Plestin-les-Grèves",
+  "slug": "plestin-les-greves",
+  "cp": "22310",
+  "lat": 48.6508,
+  "lon": -3.6197
+ },
+ {
+  "insee": "22195",
+  "nom": "Pleubian",
+  "slug": "pleubian",
+  "cp": "22610",
+  "lat": 48.8537,
+  "lon": -3.1176
+ },
+ {
+  "insee": "22196",
+  "nom": "Pleudaniel",
+  "slug": "pleudaniel",
+  "cp": "22740",
+  "lat": 48.7617,
+  "lon": -3.1537
+ },
+ {
+  "insee": "22198",
+  "nom": "Pleumeur-Bodou",
+  "slug": "pleumeur-bodou",
+  "cp": "22560",
+  "lat": 48.7895,
+  "lon": -3.5389
+ },
+ {
+  "insee": "22199",
+  "nom": "Pleumeur-Gautier",
+  "slug": "pleumeur-gautier",
+  "cp": "22740",
+  "lat": 48.7986,
+  "lon": -3.148
+ },
+ {
+  "insee": "22207",
+  "nom": "Plouaret",
+  "slug": "plouaret",
+  "cp": "22420",
+  "lat": 48.6161,
+  "lon": -3.4832
+ },
+ {
+  "insee": "22211",
+  "nom": "Ploubezre",
+  "slug": "ploubezre",
+  "cp": "22300",
+  "lat": 48.6877,
+  "lon": -3.4509
+ },
+ {
+  "insee": "29182",
+  "nom": "Plouégat-Guérand",
+  "slug": "plouegat-guerand",
+  "cp": "29620",
+  "lat": 48.624,
+  "lon": -3.6695
+ },
+ {
+  "insee": "29188",
+  "nom": "Plougasnou",
+  "slug": "plougasnou",
+  "cp": "29630",
+  "lat": 48.6788,
+  "lon": -3.8142
+ },
+ {
+  "insee": "22217",
+  "nom": "Plougras",
+  "slug": "plougras",
+  "cp": "22780",
+  "lat": 48.5031,
+  "lon": -3.5655
+ },
+ {
+  "insee": "22218",
+  "nom": "Plougrescant",
+  "slug": "plougrescant",
+  "cp": "22820",
+  "lat": 48.8423,
+  "lon": -3.2275
+ },
+ {
+  "insee": "22221",
+  "nom": "Plouguiel",
+  "slug": "plouguiel",
+  "cp": "22220",
+  "lat": 48.8065,
+  "lon": -3.2455
+ },
+ {
+  "insee": "22224",
+  "nom": "Ploulec'h",
+  "slug": "ploulec-h",
+  "cp": "22300",
+  "lat": 48.7182,
+  "lon": -3.5001
+ },
+ {
+  "insee": "22226",
+  "nom": "Ploumilliau",
+  "slug": "ploumilliau",
+  "cp": "22300",
+  "lat": 48.6869,
+  "lon": -3.5116
+ },
+ {
+  "insee": "22227",
+  "nom": "Plounérin",
+  "slug": "plounerin",
+  "cp": "22780",
+  "lat": 48.5667,
+  "lon": -3.5472
+ },
+ {
+  "insee": "22228",
+  "nom": "Plounévez-Moëdec",
+  "slug": "plounevez-moedec",
+  "cp": "22810",
+  "lat": 48.55,
+  "lon": -3.4499
+ },
+ {
+  "insee": "22235",
+  "nom": "Plouzélambre",
+  "slug": "plouzelambre",
+  "cp": "22420",
+  "lat": 48.6476,
+  "lon": -3.5346
+ },
+ {
+  "insee": "22238",
+  "nom": "Plufur",
+  "slug": "plufur",
+  "cp": "22310",
+  "lat": 48.6141,
+  "lon": -3.5756
+ },
+ {
+  "insee": "22245",
+  "nom": "Pluzunet",
+  "slug": "pluzunet",
+  "cp": "22140",
+  "lat": 48.6368,
+  "lon": -3.3765
+ },
+ {
+  "insee": "22254",
+  "nom": "Prat",
+  "slug": "prat",
+  "cp": "22140",
+  "lat": 48.6804,
+  "lon": -3.2922
+ },
+ {
+  "insee": "22257",
+  "nom": "Quemperven",
+  "slug": "quemperven",
+  "cp": "22450",
+  "lat": 48.7267,
+  "lon": -3.3357
+ },
+ {
+  "insee": "22265",
+  "nom": "Rospez",
+  "slug": "rospez",
+  "cp": "22300",
+  "lat": 48.7385,
+  "lon": -3.3862
+ },
+ {
+  "insee": "29251",
+  "nom": "Saint-Jean-du-Doigt",
+  "slug": "saint-jean-du-doigt",
+  "cp": "29630",
+  "lat": 48.6683,
+  "lon": -3.7619
+ },
+ {
+  "insee": "22319",
+  "nom": "Saint-Michel-en-Grève",
+  "slug": "saint-michel-en-greve",
+  "cp": "22300",
+  "lat": 48.6758,
+  "lon": -3.5563
+ },
+ {
+  "insee": "22324",
+  "nom": "Saint-Quay-Perros",
+  "slug": "saint-quay-perros",
+  "cp": "22700",
+  "lat": 48.7787,
+  "lon": -3.4493
+ },
+ {
+  "insee": "22340",
+  "nom": "Tonquédec",
+  "slug": "tonquedec",
+  "cp": "22140",
+  "lat": 48.6782,
+  "lon": -3.3962
+ },
+ {
+  "insee": "22343",
+  "nom": "Trébeurden",
+  "slug": "trebeurden",
+  "cp": "22560",
+  "lat": 48.772,
+  "lon": -3.5653
+ },
+ {
+  "insee": "22347",
+  "nom": "Trédarzec",
+  "slug": "tredarzec",
+  "cp": "22220",
+  "lat": 48.7922,
+  "lon": -3.2008
+ },
+ {
+  "insee": "22349",
+  "nom": "Trédrez-Locquémeau",
+  "slug": "tredrez-locquemeau",
+  "cp": "22300",
+  "lat": 48.7094,
+  "lon": -3.5623
+ },
+ {
+  "insee": "22350",
+  "nom": "Tréduder",
+  "slug": "treduder",
+  "cp": "22310",
+  "lat": 48.6559,
+  "lon": -3.5663
+ },
+ {
+  "insee": "22353",
+  "nom": "Trégastel",
+  "slug": "tregastel",
+  "cp": "22730",
+  "lat": 48.8166,
+  "lon": -3.512
+ },
+ {
+  "insee": "22359",
+  "nom": "Trégrom",
+  "slug": "tregrom",
+  "cp": "22420",
+  "lat": 48.5962,
+  "lon": -3.4042
+ },
+ {
+  "insee": "22362",
+  "nom": "Tréguier",
+  "slug": "treguier",
+  "cp": "22220",
+  "lat": 48.7848,
+  "lon": -3.2326
+ },
+ {
+  "insee": "22363",
+  "nom": "Trélévern",
+  "slug": "trelevern",
+  "cp": "22660",
+  "lat": 48.8014,
+  "lon": -3.3689
+ },
+ {
+  "insee": "22366",
+  "nom": "Trémel",
+  "slug": "tremel",
+  "cp": "22310",
+  "lat": 48.6052,
+  "lon": -3.6219
+ },
+ {
+  "insee": "22379",
+  "nom": "Trévou-Tréguignec",
+  "slug": "trevou-treguignec",
+  "cp": "22660",
+  "lat": 48.811,
+  "lon": -3.3451
+ },
+ {
+  "insee": "22381",
+  "nom": "Trézény",
+  "slug": "trezeny",
+  "cp": "22450",
+  "lat": 48.7546,
+  "lon": -3.361
+ },
+ {
+  "insee": "22383",
+  "nom": "Troguéry",
+  "slug": "troguery",
+  "cp": "22450",
+  "lat": 48.7612,
+  "lon": -3.2262
+ }
+]

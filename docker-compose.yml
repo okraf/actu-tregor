@@ -1,0 +1,31 @@
+# Conteneur du site, derrière le Caddy frontal du serveur (TLS, domaine, en-têtes de sécurité).
+# Même configuration que les autres sites : website-<nom>, port interne 8080, aucun port publié.
+# Configuration : local/config.toml (+ autorité de l'API IA), hors git, montés en lecture seule sur /config.
+name: website-tregor
+
+services:
+  website-tregor:
+    build: .
+    image: website-tregor:local
+    container_name: website-tregor
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - ./local:/config:ro
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/sante')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+networks:
+  app_network:
+    external: true

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block contenu %}
+<div class="entete">
+  <h1>{{ sujet }}</h1>
+  <p class="periode">{{ libelle }}{% if nb %}, {{ nb }} événement{{ "s" if nb > 1 }}{% endif %}</p>
+</div>
+
+<nav class="ruban" aria-label="Choisir un jour">
+  <ol>
+  {% for r in ruban %}
+    <li><a href="{{ r.lien }}" class="jour{% if r.actif %} actif{% endif %}{% if not r.n %} zero{% endif %}{% if r.date.weekday() >= 5 %} we{% endif %}"{% if r.actif %} aria-current="date"{% endif %}>
+      <span class="jsem">{{ ["lun.","mar.","mer.","jeu.","ven.","sam.","dim."][r.date.weekday()] }}</span>
+      <span class="jnum">{{ r.date.day }}</span>
+      <span class="jbarre" style="--h: {{ (r.n / maxi * 100)|round|int }}%"></span>
+      <span class="jn">{{ r.n }}<span class="vh"> événement{{ "s" if r.n > 1 }}</span></span>
+    </a></li>
+  {% endfor %}
+  </ol>
+</nav>
+
+<div class="raccourcis">
+  {% for k, v in QUAND.items() %}<a href="{{ lien_quand(k) }}"{% if quand == k %} aria-current="page"{% endif %}>{{ v }}</a>{% endfor %}
+</div>
+
+<form class="filtres" method="get" action="/">
+  <label><span>Type</span>
+    <select name="type">
+      <option value="">Tous les types</option>
+      {% for t in TYPES %}<option value="{{ t[1] }}"{% if type_ == t[1] %} selected{% endif %}>{{ t[0] }}</option>{% endfor %}
+    </select>
+  </label>
+  <label><span>Commune</span>
+    <select name="ville">
+      <option value="">Tout le Trégor</option>
+      {% for c in communes %}<option value="{{ c.slug }}"{% if ville == c.slug %} selected{% endif %}>{{ c.nom }}</option>{% endfor %}
+    </select>
+  </label>
+  <label><span>Jour</span>
+    <input type="date" name="jour" value="{{ jour }}" min="{{ aujourdhui.isoformat() }}">
+  </label>
+  <label class="large"><span>Mot-clé</span>
+    <input type="search" name="q" value="{{ q }}" placeholder="bagad, Carré Magique, crêpes…">
+  </label>
+  {% if quand and not jour %}<input type="hidden" name="quand" value="{{ quand }}">{% endif %}
+  <button type="submit">Filtrer</button>
+  {% if type_ or ville or jour or q %}<a class="effacer" href="/">Effacer les filtres</a>{% endif %}
+</form>
+
+{% if indispo %}
+<p class="vide">L'agenda est momentanément indisponible. Réessayez dans quelques minutes.</p>
+{% elif not jours and not longs %}
+<div class="vide">
+  <p>Aucun événement ne correspond à ces filtres.</p>
+  <p><a href="{{ lien_quand('mois') }}">Voir les 30 prochains jours</a>{% if ville or type_ %} ou <a href="/">tout l'agenda du Trégor</a>{% endif %}.</p>
+</div>
+{% endif %}
+
+{% for d, evs in jours.items() %}
+<section class="journee" aria-labelledby="j{{ d.isoformat() }}">
+  <h2 id="j{{ d.isoformat() }}"><span class="jj" aria-hidden="true">{{ d.day }}</span><span class="vh">{{ d|date_fr }}</span><span class="jl" aria-hidden="true">{{ (d|date_fr).split(" ")[0] }}</span> <span class="jm" aria-hidden="true">{{ (d|date_fr).split(" ")[2] }}{% if d.year != aujourdhui.year %} {{ d.year }}{% endif %}</span></h2>
+  <ol class="liste">
+  {% for e in evs %}
+    {% include "_ligne.html" %}
+  {% endfor %}
+  </ol>
+</section>
+{% endfor %}
+
+{% if longs %}
+<section class="encours" aria-labelledby="encours">
+  <h2 id="encours">En ce moment</h2>
+  <p class="sous">Expositions, visites et événements sur plusieurs jours.</p>
+  <ol class="liste">
+  {% for e in longs %}
+    {% set long = true %}
+    {% include "_ligne.html" %}
+  {% endfor %}
+  </ol>
+</section>
+{% endif %}
+
+<script>
+document.querySelectorAll('.filtres select, .filtres input[type=date]').forEach(function (c) {
+  c.addEventListener('change', function () { c.form.requestSubmit(); });
+});
+</script>
+{% endblock %}

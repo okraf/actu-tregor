@@ -1,0 +1,285 @@
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/static/fonts/bricolage-grotesque-latin-wght-normal.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("/static/fonts/atkinson-hyperlegible-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("/static/fonts/atkinson-hyperlegible-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --granit: #f2e3dd;
+  --granit-fonce: #e3c7bd;
+  --mer: #0e3b4a;
+  --lichen: #d9892b;
+  --goemon: #56662b;
+  --encre: #1c2930;
+  --doux: #5a6870;
+  --fond: var(--granit);
+  --surface: #fbf4f1;
+  --trait: #d9bfb5;
+  --lien: var(--mer);
+  --titre: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --texte: "Atkinson Hyperlegible", system-ui, sans-serif;
+  /* couleurs des types */
+  --t-concert: #b0413e;
+  --t-spectacle: #8a3f8f;
+  --t-fest-noz: #0e3b4a;
+  --t-festival: #d9892b;
+  --t-exposition: #3f6fa0;
+  --t-cinema: #4b4f9c;
+  --t-conference: #5a6870;
+  --t-atelier: #8d6b2f;
+  --t-enfants: #c8577f;
+  --t-sport: #2f7d6d;
+  --t-nature: #56662b;
+  --t-marche: #a35a2a;
+  --t-salon: #9a7b25;
+  --t-visite: #6b5b4e;
+  --t-fete: #c2452d;
+  --t-autre: #7c868c;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fond: #10232b;
+    --surface: #163039;
+    --encre: #eee3de;
+    --doux: #a9b6bb;
+    --trait: #2c4752;
+    --lien: #f0bfb0;
+    --granit-fonce: #1d3c47;
+    --t-fest-noz: #7fb3c4;
+    --t-cinema: #8f93db;
+    --t-exposition: #7fa7d1;
+    --t-conference: #a9b6bb;
+    --t-spectacle: #c68ac9;
+    --t-concert: #e07a73;
+    --t-nature: #9fb35c;
+    --t-sport: #5fb8a5;
+    --t-visite: #b9a594;
+    --t-atelier: #c9a25e;
+    color-scheme: dark;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--encre);
+  font: 1.0625rem/1.55 var(--texte);
+}
+a { color: var(--lien); text-underline-offset: .18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--lichen); outline-offset: 2px; border-radius: 3px; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.evitement { position: absolute; left: -999px; top: 0; background: var(--mer); color: #fff; padding: .5rem 1rem; z-index: 10; }
+.evitement:focus { left: 1rem; }
+
+/* Bandeau : granit moucheté */
+.bandeau {
+  background-color: var(--mer);
+  background-image:
+    radial-gradient(circle at 12% 30%, rgba(232, 180, 166, .16) 0 1.5px, transparent 2px),
+    radial-gradient(circle at 70% 60%, rgba(232, 180, 166, .12) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, .08) 0 1px, transparent 1.5px);
+  background-size: 23px 19px, 17px 29px, 31px 13px;
+  color: #f6e9e4;
+}
+.bandeau-in {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 1rem 1rem .9rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .25rem 1.25rem;
+}
+.marque {
+  font: 750 1.35rem/1.1 var(--titre);
+  color: #f6e9e4;
+  text-decoration: none;
+  letter-spacing: -.01em;
+}
+.accroche { margin: 0; color: #e8b4a6; font-size: .95rem; }
+
+main { max-width: 64rem; margin: 0 auto; padding: 0 1rem 3rem; }
+
+.entete { padding: 2.25rem 0 1rem; }
+h1 {
+  font: 700 clamp(2rem, 5.5vw, 3.4rem)/1.02 var(--titre);
+  letter-spacing: -.025em;
+  margin: 0;
+  max-width: 22ch;
+  color: var(--mer);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) h1 { color: var(--encre); } }
+.periode { margin: .5rem 0 0; color: var(--doux); font-size: 1.05rem; }
+
+/* Ruban des jours : chiffres comme un annuaire des marées, barre = nombre d'événements */
+.ruban { margin: .75rem -1rem 0; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: thin; }
+.ruban ol { list-style: none; margin: 0; padding: 0 1rem; display: flex; gap: .35rem; min-width: max-content; }
+.ruban li { scroll-snap-align: start; }
+.jour {
+  display: grid;
+  grid-template-rows: auto auto 3.25rem auto;
+  justify-items: center;
+  width: 3.6rem;
+  padding: .55rem 0 .5rem;
+  border-radius: .6rem;
+  text-decoration: none;
+  color: var(--encre);
+  background: var(--surface);
+  border: 1px solid var(--trait);
+}
+.jour.we { background: var(--granit-fonce); }
+.jour:hover { border-color: var(--mer); }
+.jour.actif { background: var(--mer); border-color: var(--mer); color: #f6e9e4; }
+.jsem { font-size: .8rem; color: inherit; opacity: .75; }
+.jnum { font: 650 1.75rem/1.05 var(--titre); font-variant-numeric: tabular-nums; letter-spacing: -.03em; }
+.jbarre { align-self: end; width: .55rem; height: var(--h); min-height: 2px; background: var(--lichen); border-radius: 2px 2px 0 0; }
+.jn { font-size: .8rem; font-variant-numeric: tabular-nums; border-top: 2px solid currentColor; padding-top: .15rem; width: 2rem; text-align: center; opacity: .85; }
+
+.raccourcis { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1.1rem 0 0; }
+.raccourcis a {
+  padding: .3rem .8rem;
+  border-radius: 99px;
+  border: 1px solid var(--trait);
+  text-decoration: none;
+  color: var(--encre);
+  font-size: .95rem;
+}
+.raccourcis a:hover { border-color: var(--mer); }
+.raccourcis a[aria-current] { background: var(--encre); color: var(--fond); border-color: var(--encre); }
+
+.filtres {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: .75rem;
+  align-items: end;
+  margin: 1.25rem 0 .5rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--trait);
+  border-bottom: 1px solid var(--trait);
+}
+.filtres label { display: grid; gap: .25rem; font-size: .9rem; color: var(--doux); }
+.filtres select, .filtres input {
+  font: inherit;
+  font-size: 1rem;
+  color: var(--encre);
+  background: var(--surface);
+  border: 1px solid var(--trait);
+  border-radius: .45rem;
+  padding: .5rem .6rem;
+  min-height: 2.6rem;
+  width: 100%;
+}
+.filtres button {
+  font: 650 1rem var(--titre);
+  background: var(--mer);
+  color: #f6e9e4;
+  border: 0;
+  border-radius: .45rem;
+  min-height: 2.6rem;
+  padding: 0 1.2rem;
+  cursor: pointer;
+}
+.effacer { align-self: center; font-size: .95rem; }
+
+.vide { padding: 2rem 0; font-size: 1.1rem; }
+.vide p { margin: 0 0 .5rem; }
+
+/* Journées */
+.journee, .encours { margin-top: 2.25rem; }
+.journee h2, .encours h2 {
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+  margin: 0 0 .25rem;
+  font: 650 1.35rem/1.2 var(--titre);
+  position: sticky;
+  top: 0;
+  background: var(--fond);
+  padding: .5rem 0 .4rem;
+  border-bottom: 2px solid var(--encre);
+  z-index: 1;
+}
+.jj { font-size: 2.1rem; line-height: 1; font-weight: 750; letter-spacing: -.03em; color: var(--lichen); font-variant-numeric: tabular-nums; }
+.jl::first-letter { text-transform: uppercase; }
+.jm { color: var(--doux); font-weight: 450; }
+.jour.zero .jnum, .jour.zero .jsem { opacity: .45; }
+.jour.zero .jbarre { visibility: hidden; }
+.corps { min-width: 0; }
+.filtres > * { min-width: 0; }
+.sous { margin: .4rem 0 0; color: var(--doux); }
+
+.liste { list-style: none; margin: 0; padding: 0; }
+.ev {
+  display: grid;
+  grid-template-columns: 4.75rem 1fr;
+  gap: .9rem;
+  padding: .8rem 0;
+  border-bottom: 1px solid var(--trait);
+}
+.heure { font: 600 1rem/1.4 var(--titre); font-variant-numeric: tabular-nums; color: var(--doux); padding-top: .1rem; }
+.jusqu { display: block; font: 400 .75rem var(--texte); }
+.titre { font: 650 1.15rem/1.3 var(--titre); color: var(--encre); text-decoration: none; }
+.titre:hover { text-decoration: underline; }
+.meta { margin: .3rem 0 0; display: flex; flex-wrap: wrap; gap: .25rem .9rem; font-size: .93rem; color: var(--doux); }
+.type { display: inline-flex; align-items: center; gap: .4rem; color: var(--tc); font-weight: 700; text-decoration: none; }
+.type::before { content: ""; width: .7rem; height: .7rem; border-radius: 3px 5px 4px 6px; background: var(--tc); flex: none; }
+.ville { color: var(--encre); font-weight: 700; }
+.lieu { overflow-wrap: anywhere; }
+
+.t-concert { --tc: var(--t-concert); } .t-spectacle { --tc: var(--t-spectacle); }
+.t-fest-noz { --tc: var(--t-fest-noz); } .t-festival { --tc: var(--t-festival); }
+.t-exposition { --tc: var(--t-exposition); } .t-cinema { --tc: var(--t-cinema); }
+.t-conference { --tc: var(--t-conference); } .t-atelier { --tc: var(--t-atelier); }
+.t-enfants { --tc: var(--t-enfants); } .t-sport { --tc: var(--t-sport); }
+.t-nature { --tc: var(--t-nature); } .t-marche { --tc: var(--t-marche); }
+.t-salon { --tc: var(--t-salon); } .t-visite { --tc: var(--t-visite); }
+.t-fete { --tc: var(--t-fete); } .t-autre { --tc: var(--t-autre); }
+
+/* Fiche */
+.fiche { padding-top: 1.5rem; max-width: 46rem; }
+.fil { margin: 0 0 1rem; color: var(--doux); font-size: .95rem; }
+.fiche h1 { max-width: none; font-size: clamp(1.9rem, 5vw, 3rem); }
+.infos { margin: 1.5rem 0; display: grid; gap: .1rem; }
+.infos div { display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem; padding: .55rem 0; border-bottom: 1px solid var(--trait); }
+.infos dt { color: var(--doux); }
+.infos dd { margin: 0; }
+.texte { line-height: 1.65; max-width: 68ch; }
+.texte p { margin: 0 0 .9rem; }
+.source a {
+  display: inline-block;
+  font: 650 1rem var(--titre);
+  background: var(--mer);
+  color: #f6e9e4;
+  text-decoration: none;
+  padding: .65rem 1.1rem;
+  border-radius: .45rem;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .source a, :root:not([data-theme="light"]) .filtres button, :root:not([data-theme="light"]) .jour.actif { background: #f0bfb0; color: #10232b; border-color: #f0bfb0; } }
+
+.pied { max-width: 64rem; margin: 0 auto; padding: 2rem 1rem 3rem; color: var(--doux); font-size: .9rem; border-top: 1px solid var(--trait); }
+.pied p { margin: 0 0 .5rem; max-width: 70ch; }
+
+@media (max-width: 34rem) {
+  .ev { grid-template-columns: 3.6rem 1fr; gap: .6rem; }
+  .filtres { grid-template-columns: 1fr 1fr; }
+  .filtres .large { grid-column: 1 / -1; }
+  .filtres button { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
