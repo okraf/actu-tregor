@@ -34,3 +34,9 @@ uv venv -p 3.13 .venv && uv pip install -p .venv -r requirements.txt pytest
 ## Déploiement
 
 Conteneur `website-tregor` (port 8080, aucun port publié, réseau Docker externe `app_network`), derrière un reverse proxy qui porte TLS, domaine et en-têtes de sécurité. `docker compose up -d --build` dans le dossier du dépôt, avec `local/config.toml` en place.
+
+## Licences
+
+- Polices Jost et DM Mono : SIL Open Font License 1.1 (`app/static/fonts/OFL-*.txt`).
+- Logo et croix PERCEVAL (`app/static/perceval-*.svg`, favicons) : marque de PERCEVAL, non réutilisables hors de ce site.
+- Données affichées : propriété de leurs sources (Alentoor, OpenAgenda, Unidivers, actu.fr), chaque fiche renvoie vers l'annonce d'origine.
