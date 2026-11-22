@@ -74,7 +74,8 @@ def analyser(article: dict) -> dict:
 def vers_evenement(article: dict, a: dict) -> dict | None:
     if not a.get("evenement"):
         return None
-    c = commune(a.get("ville")) or commune(article["ville"])
+    # Ville donnée par l'IA hors du Trégor : rejet (pas de repli sur la commune de l'article).
+    c = commune(a.get("ville")) if a.get("ville") else commune(article["ville"])
     try:
         debut = date.fromisoformat(str(a.get("date_debut"))[:10])
     except ValueError:

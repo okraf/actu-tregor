@@ -49,3 +49,9 @@ def test_actu_garde_fous():
     ev = actu.vers_evenement(art, {"evenement": True, "date_debut": "2026-11-28", "ville": "Lannion", "type": "Concert", "titre": "Concert"})
     assert ev["date_debut"] == "2026-11-28" and ev["type"] == "Concert"
     assert actu.vers_evenement(art, {"evenement": False}) is None
+
+
+def test_actu_ville_hors_tregor():
+    art = {"titre": "Chausson", "url": "u", "ville": "Penvénan", "description": "", "categories": "Penvénan",
+           "publie_le": datetime(2026, 11, 20, 6, 30, tzinfo=PARIS)}
+    assert actu.vers_evenement(art, {"evenement": True, "date_debut": "2026-11-28", "ville": "Vannes"}) is None
