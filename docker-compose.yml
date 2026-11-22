@@ -1,6 +1,7 @@
 # Conteneur du site, derrière le Caddy frontal du serveur (TLS, domaine, en-têtes de sécurité).
 # Même configuration que les autres sites : website-<nom>, port interne 8080, aucun port publié.
 # Configuration : local/config.toml (+ autorité de l'API IA), hors git, montés en lecture seule sur /config.
+# local/config.toml doit être lisible par le groupe 10001 (utilisateur du conteneur) : chgrp 10001 + chmod 640.
 name: website-tregor
 
 services:

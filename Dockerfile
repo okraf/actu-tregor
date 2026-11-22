@@ -2,7 +2,7 @@ FROM python:3.13-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 WORKDIR /srv
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt && useradd --system --uid 10001 --no-create-home site
+RUN pip install --no-cache-dir -r requirements.txt && groupadd --system --gid 10001 site && useradd --system --uid 10001 --gid 10001 --no-create-home site
 COPY app app
 COPY data data
 USER site
