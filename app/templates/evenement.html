@@ -24,10 +24,8 @@
       <button type="button" class="bouton" id="copier-adresse" data-adresse="{{ adresse_copie }}">
         <svg class="icone" aria-hidden="true"><use href="#i-copier"/></svg><span>Copier l'adresse</span>
       </button>
-      {% if e.lat and e.lon %}
-      <a href="https://www.openstreetmap.org/directions?to={{ e.lat }}%2C{{ e.lon }}" rel="noopener"><svg class="icone" aria-hidden="true"><use href="#i-itineraire"/></svg>Itinéraire</a>
-      <a href="https://www.openstreetmap.org/?mlat={{ e.lat }}&amp;mlon={{ e.lon }}#map=16/{{ e.lat }}/{{ e.lon }}" rel="noopener"><svg class="icone" aria-hidden="true"><use href="#i-carte"/></svg>Voir sur la carte</a>
-      {% endif %}
+      <a href="https://www.google.com/maps/dir/?api=1&amp;destination={{ adresse_copie|urlencode }}" rel="noopener"><svg class="icone" aria-hidden="true"><use href="#i-itineraire"/></svg>Itinéraire</a>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query={{ adresse_copie|urlencode }}" rel="noopener"><svg class="icone" aria-hidden="true"><use href="#i-carte"/></svg>Voir sur Google Maps</a>
     </div>
     <p class="statut" role="status" aria-live="polite"></p>
   </section>
